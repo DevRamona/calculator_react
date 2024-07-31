@@ -42,7 +42,7 @@ function App() {
         setDisplayValue(value.toString());
       } else {
         const newValue =
-          currentValue === "0" ? element : element + currentValue;
+          currentValue === "0" ? element : currentValue + element;
         setCurrentValue(newValue);
         setDisplayValue(newValue);
       }
@@ -76,6 +76,16 @@ function App() {
         }
       }
 
+      function deleteLastValue() {
+        if(currentValue.length > 0) {
+          const newInput = currentValue.slice(0,-1)
+          setCurrentValue(newInput)
+          setDisplayValue(currentValue === "" ? "0" : newInput)
+
+        }
+        
+      }
+
       return (
         <>
           <div className="grid grid-cols-4 grid-rows-6 border w-72 text-2xl">
@@ -84,6 +94,7 @@ function App() {
               type="text"
               placeholder="0"
               value={displayValue}
+              readOnly
             />
             <div className="bg-gray-400 p-6 border row-start-2">
               {" "}
@@ -91,7 +102,7 @@ function App() {
             </div>
             <div className="bg-gray-400 p-6 border row-start-2">
               {" "}
-              <button onClick={(e) => setValue(value.slice(0, -1))}>DEL</button>
+              <button onClick={deleteLastValue}>DEL</button>
             </div>
             <div className="bg-gray-400 p-6 border row-start-2">
               {" "}
